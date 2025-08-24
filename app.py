@@ -68,6 +68,7 @@ def generar_mision():
     except requests.exceptions.Timeout:
         return jsonify({"error": "HF API timeout"}), 504
     except requests.exceptions.RequestException as e:
+        print(f"!!!! DEBUGGING: ERROR CAPTURADO: {str(e)}")
         return jsonify({"error": f"HF API error: {str(e)}"}), 500
 
     # Extraer el texto generado
