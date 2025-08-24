@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)
 
 # === Configuración del modelo en Hugging Face ===
-HF_MODEL_ID = os.getenv("HF_MODEL_ID", "bekenRey/mt5-small-rpg-mission-generator-english")
+HF_MODEL_ID = os.getenv("HF_MODEL_ID", "google/flan-t5-small")
 HF_TOKEN = os.getenv("HF_TOKEN", "")
 HF_API_URL = f"https://api-inference.huggingface.co/models/{HF_MODEL_ID}"
 
