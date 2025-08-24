@@ -47,41 +47,13 @@ def health_check():
 
 @app.post("/api/mission")
 def generar_mision():
-    if not model or not tokenizer:
-        return jsonify({"error": "Model not loaded"}), 500
-
-    data = request.get_json(force=True) or {}
-    prompt = data.get("prompt", "Generate a fantasy RPG mission")
+    # Modo demo hasta que resolvamos las dependencias
+    return jsonify({
+        "generated_text": "Mission: Find the ancient treasure (demo mode)",
+        "status": "demo",
+        "message": "Dependencies installing, check back soon"
+    })
     
-    try:
-        # Tokenizar
-        input_text = f"generate mission: {prompt}"
-        inputs = tokenizer(input_text, return_tensors="pt", max_length=512, truncation=True)
-        
-        # Generar
-        with torch.no_grad():
-            outputs = model.generate(
-                inputs.input_ids,
-                max_new_tokens=128,
-                do_sample=True,
-                temperature=0.7,
-                top_k=30,
-                top_p=0.9
-            )
-        
-        # Decodificar
-        generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
-        
-        # Intentar parsear JSON
-        try:
-            parsed_json = json.loads(generated_text)
-            return jsonify(parsed_json)
-        except json.JSONDecodeError:
-            return jsonify({"generated_text": generated_text})
-            
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5001))
     app.run(host="0.0.0.0", port=port)
