@@ -1,4 +1,6 @@
 flask==2.3.3
 flask-cors==4.0.0
-requests==2.31.0
-gunicorn==21.2.0
+torch==2.0.1
+transformers==4.30.0
+accelerate==0.20.0
+safetensors==0.3.1
